@@ -1,10 +1,14 @@
-# wxml-to-canvas
+# wxml-to-canvas-enhanced
+
+在wxml-to-canvas的基础上新增了部分功能。
+
+1. 在安卓设备上，如果dpr>2,默认dpr为2
+2. 画文本的时候，会自动计算宽度，超出部分转换成...
 
 [![](https://img.shields.io/npm/v/wxml-to-canvas)](https://www.npmjs.com/package/wxml-to-canvas)
 [![](https://img.shields.io/npm/l/wxml-to-canvas)](https://github.com/wechat-miniprogram/wxml-to-canvas)
 
 小程序内通过静态模板和样式绘制 canvas ，导出图片，可用于生成分享图等场景。[代码片段](https://developers.weixin.qq.com/s/r6UBlEm17pc6)
-
 
 ## 使用方法
 
@@ -39,7 +43,6 @@ npm install --save wxml-to-canvas
 | --------------- | ------- | ------- | ---- | ---------------------- |
 | width           | Number  |   400      | 否   | 画布宽度           |
 | height           | Number  |   300      | 否   | 画布高度           |
-
 
 #### Step4. js 获取实例
 
