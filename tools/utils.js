@@ -23,7 +23,7 @@ function wrap(func, scope) {
         else resolve(data)
       })
 
-      func.apply((scope || null), args)
+      func.apply(scope || null, args)
     })
   }
 }
@@ -150,7 +150,11 @@ function logger(action = 'copy') {
     const type = path.extname(file.path).slice(1).toLowerCase()
 
     // eslint-disable-next-line no-console
-    console.log(`[${format(new Date(), 'yyyy-MM-dd HH:mm:ss').grey}] [${action.green} ${type.green}] ${'=>'.cyan} ${file.path}`)
+    console.log(
+      `[${format(new Date(), 'yyyy-MM-dd HH:mm:ss').grey}] [${action.green} ${
+        type.green
+      }] ${'=>'.cyan} ${file.path}`
+    )
 
     this.push(file)
     cb()
@@ -209,5 +213,5 @@ module.exports = {
   format,
   compareArray,
   merge,
-  getId,
+  getId
 }

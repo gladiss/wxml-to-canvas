@@ -24,34 +24,32 @@ module.exports = {
 
   wxss: {
     less: false, // 使用 less 来编写 wxss
-    sourcemap: false, // 生成 less sourcemap
+    sourcemap: false // 生成 less sourcemap
   },
 
   js: {
-    webpack: true, // 使用 webpack 来构建 js
+    webpack: true // 使用 webpack 来构建 js
   },
 
   webpack: {
     mode: 'production',
     output: {
       filename: '[name].js',
-      libraryTarget: 'umd',
+      libraryTarget: 'umd'
     },
     target: 'web',
     externals: [nodeExternals()], // 忽略 node_modules
-    module: {
-
-    },
+    module: {},
     resolve: {
       modules: [src, 'node_modules'],
-      extensions: ['.js', '.json'],
+      extensions: ['.js', '.json']
     },
     plugins: [
       new webpack.DefinePlugin({}),
-      new webpack.optimize.LimitChunkCountPlugin({maxChunks: 1}),
+      new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 })
     ],
     optimization: {
-      minimize: false,
+      minimize: false
     },
     // devtool: 'nosources-source-map', // 生成 js sourcemap
     performance: {
@@ -60,5 +58,5 @@ module.exports = {
     }
   },
 
-  copy: ['./utils.js'], // 将会复制到目标目录
+  copy: ['./utils.js'] // 将会复制到目标目录
 }

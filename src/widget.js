@@ -1,5 +1,5 @@
 const Block = require('widget-ui')
-const {splitLineToCamelCase} = require('./utils')
+const { splitLineToCamelCase } = require('./utils')
 
 class Element extends Block {
   constructor(prop) {
@@ -9,13 +9,18 @@ class Element extends Block {
   }
 }
 
-
 class Widget {
   constructor(xom, style) {
     this.xom = xom
     this.style = style
 
-    this.inheritProps = ['fontSize', 'lineHeight', 'textAlign', 'verticalAlign', 'color']
+    this.inheritProps = [
+      'fontSize',
+      'lineHeight',
+      'textAlign',
+      'verticalAlign',
+      'color'
+    ]
   }
 
   init() {
@@ -51,7 +56,7 @@ class Widget {
       Object.assign(style, this.style[item] || {})
     })
 
-    const args = {name: node.name, style}
+    const args = { name: node.name, style }
 
     const attrs = Object.keys(node.attributes)
     const attributes = {}
@@ -78,4 +83,4 @@ class Widget {
   }
 }
 
-module.exports = {Widget}
+module.exports = { Widget }

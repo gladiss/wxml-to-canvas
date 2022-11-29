@@ -18,11 +18,11 @@ const style = {
     flexDirection: 'row',
     justifyContent: 'space-around',
     backgroundColor: '#ccc',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   itemBox: {
     width: 80,
-    height: 60,
+    height: 60
   },
   red: {
     backgroundColor: '#ff0000'
@@ -33,18 +33,18 @@ const style = {
   blue: {
     backgroundColor: '#0000ff',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   text: {
     width: 80,
     height: 60,
     textAlign: 'center',
-    verticalAlign: 'middle',
+    verticalAlign: 'middle'
   },
   img: {
     width: 40,
     height: 40,
-    borderRadius: 20,
+    borderRadius: 20
   }
 }
 

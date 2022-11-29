@@ -1,13 +1,10 @@
-
 /**
  * Module dependencies.
  */
 
-
 /**
  * Expose `parse`.
  */
-
 
 /**
  * Parse the given string of `xml`.
@@ -95,7 +92,7 @@ function parse(xml) {
 
     // children
     let child
-    while (child = tag()) {
+    while ((child = tag())) {
       node.children.push(child)
     }
 
@@ -122,7 +119,7 @@ function parse(xml) {
   function attribute() {
     const m = match(/([\w:-]+)\s*=\s*("[^"]*"|'[^']*'|\w+)\s*/)
     if (!m) return
-    return {name: m[1], value: strip(m[2])}
+    return { name: m[1], value: strip(m[2]) }
   }
 
   /**

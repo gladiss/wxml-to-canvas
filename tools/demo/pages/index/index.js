@@ -1,4 +1,4 @@
-import {wxml, style} from './demo'
+import { wxml, style } from './demo'
 
 Page({
   data: {
@@ -9,13 +9,16 @@ Page({
   },
   renderToCanvas() {
     const p1 = this.widget.renderToCanvas({ wxml, style })
-    p1.then((res) => {
+    // eslint-disable-next-line promise/catch-or-return
+    p1.then(res => {
+      // eslint-disable-next-line no-console
       console.log('container', res.layoutBox)
       this.container = res
     })
   },
   extraImage() {
     const p2 = this.widget.canvasToTempFilePath()
+    // eslint-disable-next-line promise/catch-or-return
     p2.then(res => {
       this.setData({
         src: res.tempFilePath,

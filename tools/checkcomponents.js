@@ -15,7 +15,10 @@ function getJsonPathInfo(jsonPath) {
   const fileBase = path.join(relative, fileName)
 
   return {
-    dirPath, fileName, relative, fileBase
+    dirPath,
+    fileName,
+    relative,
+    fileBase
   }
 }
 
@@ -28,7 +31,7 @@ async function checkIncludedComponents(jsonPath, componentListMap) {
   const json = _.readJson(jsonPath)
   if (!json) throw new Error(`json is not valid: "${jsonPath}"`)
 
-  const {dirPath, fileName, fileBase} = getJsonPathInfo(jsonPath)
+  const { dirPath, fileName, fileBase } = getJsonPathInfo(jsonPath)
   if (hasCheckMap[fileBase]) return
   hasCheckMap[fileBase] = true
 
@@ -39,7 +42,10 @@ async function checkIncludedComponents(jsonPath, componentListMap) {
 
     for (let j = 0, jlen = keys.length; j < jlen; j++) {
       const key = keys[j]
-      let value = typeof checkPropValue[key] === 'object' ? checkPropValue[key].default : checkPropValue[key]
+      let value =
+        typeof checkPropValue[key] === 'object'
+          ? checkPropValue[key].default
+          : checkPropValue[key]
       if (!value) continue
 
       value = _.transformPath(value, path.sep)
@@ -69,12 +75,12 @@ module.exports = async function (entry) {
     jsonFileList: [],
     jsFileList: [],
 
-    jsFileMap: {}, // 为 webpack entry 所用
+    jsFileMap: {} // 为 webpack entry 所用
   }
 
   const isExists = await _.checkFileExists(entry)
   if (!isExists) {
-    const {dirPath, fileName, fileBase} = getJsonPathInfo(entry)
+    const { dirPath, fileName, fileBase } = getJsonPathInfo(entry)
 
     componentListMap.jsFileList.push(`${fileBase}.js`)
     componentListMap.jsFileMap[fileBase] = `${path.join(dirPath, fileName)}.js`
