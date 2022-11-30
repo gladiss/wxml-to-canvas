@@ -10,14 +10,24 @@ const id = require('./package.json').name || 'miniprogram-custom-component'
 new BuildTask(id, config.entry)
 
 // 清空生成目录和文件
-gulp.task('clean', gulp.series(() => gulp.src(config.distPath, {read: false, allowEmpty: true}).pipe(clean()), done => {
-  if (config.isDev) {
-    return gulp.src(config.demoDist, {read: false, allowEmpty: true})
-      .pipe(clean())
-  }
+gulp.task(
+  'clean',
+  gulp.series(
+    () =>
+      gulp
+        .src(config.distPath, { read: false, allowEmpty: true })
+        .pipe(clean()),
+    done => {
+      if (config.isDev) {
+        return gulp
+          .src(config.demoDist, { read: false, allowEmpty: true })
+          .pipe(clean())
+      }
 
-  return done()
-}))
+      return done()
+    }
+  )
+)
 // 监听文件变化并进行开发模式构建
 gulp.task('watch', gulp.series(`${id}-watch`))
 // 开发模式构建

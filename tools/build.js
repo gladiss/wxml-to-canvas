@@ -408,11 +408,10 @@ class BuildTask {
         .filter(copyFilePath => !!copyFilePath)
       const watchCallback = filePath => copy([filePath])
 
-      return gulp
-        .watch(copyFileList, { cwd: srcPath, base: srcPath })
-        .on('change', watchCallback)
-        .on('add', watchCallback)
-        .on('unlink', watchCallback)
+      const watcher = gulp.watch(copyFileList, { cwd: srcPath, base: srcPath })
+      watcher.on('change', watchCallback)
+      watcher.on('add', watchCallback)
+      watcher.on('unlink', watchCallback)
     })
 
     /**
@@ -421,16 +420,15 @@ class BuildTask {
     gulp.task(`${id}-watch-demo`, () => {
       const demoSrc = config.demoSrc
       const demoDist = config.demoDist
-      const watchCallback = filePath =>
-        gulp
+      const watchCallback = filePath => {
+        return gulp
           .src(filePath, { cwd: demoSrc, base: demoSrc })
           .pipe(gulp.dest(demoDist))
-
-      return gulp
-        .watch('**/*', { cwd: demoSrc, base: demoSrc })
-        .on('change', watchCallback)
-        .on('add', watchCallback)
-        .on('unlink', watchCallback)
+      }
+      const watcher = gulp.watch('**/*', { cwd: demoSrc, base: demoSrc })
+      watcher.on('change', watchCallback)
+      watcher.on('add', watchCallback)
+      watcher.on('unlink', watchCallback)
     })
 
     /**

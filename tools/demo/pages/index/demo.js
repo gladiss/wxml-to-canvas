@@ -1,12 +1,12 @@
 const wxml = `
-<view class="container" >
+<view class="container2" >
   <view class="item-box red">
   </view>
   <view class="item-box green" >
     <text class="text">yeah!</text>
   </view>
   <view class="item-box blue">
-      <image class="img" src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3582589792,4046843010&fm=26&gp=0.jpg"></image>
+      <image class="img" src="https://open.weixin.qq.com/zh_CN/htmledition/res/assets/res-design-download/icon64_appwx_logo.png"></image>
   </view>
 </view>
 `
@@ -47,6 +47,7 @@ const style = {
     borderRadius: 20
   }
 }
+const a = 166
 
 module.exports.wxml = wxml
 module.exports.style = style

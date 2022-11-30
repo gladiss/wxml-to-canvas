@@ -14,6 +14,10 @@ Component({
     height: {
       type: Number,
       value: 300
+    },
+    androidDprTo2: {
+      type: Boolean,
+      value: false
     }
   },
   data: {
@@ -24,7 +28,12 @@ Component({
       const { SDKVersion, platform, pixelRatio: Dpr } = wx.getSystemInfoSync()
       const use2dCanvas = compareVersion(SDKVersion, '2.9.2') >= 0
       let dpr = Dpr
-      if (Dpr > 2 && platform !== 'ios' && platform !== 'devtools') {
+      if (
+        Dpr > 2 &&
+        platform !== 'ios' &&
+        platform !== 'devtools' &&
+        this.data.androidDprTo2
+      ) {
         dpr = 2
       }
 
