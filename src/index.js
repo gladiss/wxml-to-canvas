@@ -59,8 +59,8 @@ Component({
   },
   methods: {
     clearCtx() {
-      if (this.isCleaning) return
-      this.isCleaning = true
+      if (this.isClearing) return
+      this.isClearing = true
       this.initCtx = new Promise(resolve => {
         this.ctx.clearRect(0, 0, this.data.canvasWidth, this.data.canvasHeight)
         this.ctx = null
@@ -88,12 +88,12 @@ Component({
             ctx.scale(this.dpr, this.dpr)
             this.ctx = ctx
             this.canvas = canvas
-            this.isCleaning = false
+            this.isClearing = false
             resolve()
           })
       } else {
         this.ctx = wx.createCanvasContext(canvasId, this)
-        this.isCleaning = false
+        this.isClearing = false
         resolve()
       }
     },

@@ -1,9 +1,11 @@
 # wxml-to-canvas-enhanced
 
-在wxml-to-canvas的基础上新增了部分功能。
+在 wxml-to-canvas 的基础上新增了部分功能。
 
-1. 在安卓设备上，如果dpr>2,默认dpr为2
-2. 画文本的时候，会自动计算宽度，超出部分转换成...
+1. 新增 androidDprTo2 属性
+2. 画文本的时候，会自动计算宽度，超出部分转换成...（支持单行和多行）
+3. 支持在即时渲染画布
+4. 支持动态宽高
 
 [![](https://img.shields.io/npm/v/wxml-to-canvas)](https://www.npmjs.com/package/wxml-to-canvas)
 [![](https://img.shields.io/npm/l/wxml-to-canvas)](https://github.com/wechat-miniprogram/wxml-to-canvas)
@@ -39,10 +41,11 @@ npm install --save wxml-to-canvas
 
 ##### 属性列表
 
-| 属性            | 类型    | 默认值  | 必填 | 说明                   |
-| --------------- | ------- | ------- | ---- | ---------------------- |
-| width           | Number  |   400      | 否   | 画布宽度           |
-| height           | Number  |   300      | 否   | 画布高度           |
+| 属性          | 类型    | 默认值 | 必填 | 说明                                                     |
+| ------------- | ------- | ------ | ---- | -------------------------------------------------------- |
+| width         | Number  | 400    | 否   | 画布宽度                                                 |
+| height        | Number  | 300    | 否   | 画布高度                                                 |
+| androidDprTo2 | Boolean | false  | 否   | 在安卓机 dpr 大于 2 的时候，是否还是按照 dpr 为 2 来渲染 |
 
 #### Step4. js 获取实例
 
