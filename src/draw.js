@@ -84,9 +84,26 @@ class Draw {
 
       const isTempFile = /^wxfile:\/\//.test(img)
       const isNetworkFile = /^https?:\/\//.test(img)
+      const isSvg = /.*\.svg$/.test(img)
 
       if (isTempFile) {
         _drawImage(img)
+      } else if (isSvg) {
+        reject(new Error(`svg is not support: ${img}`))
+        // wx.request({
+        //   url: img,
+        //   success: res => {
+        //     console.log(res)
+        //     const domUrl = window.URL || window.webkitURL || window
+        //     const svgText = res.data
+        //     const svgBlob = new Blob([svgText], {
+        //       type: 'image/svg+xml;charset=utf-8'
+        //     })
+        //     var url = domUrl.createObjectURL(svgBlob)
+        //     console.log(url)
+        //     _drawImage(url)
+        //   }
+        // })
       } else if (isNetworkFile) {
         wx.downloadFile({
           url: img,

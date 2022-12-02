@@ -21,46 +21,84 @@ Component({
     }
   },
   data: {
-    use2dCanvas: false // 2.9.2 后可用canvas 2d 接口
+    use2dCanvas: false, // 2.9.2 后可用canvas 2d 接口
+    canvasWidth: 400,
+    canvasHeight: 300
+  },
+  observers: {
+    width: function (value) {
+      if (this.data.canvasWidth !== value && this.ctx) {
+        this.clearCtx()
+      }
+    },
+    height: function (value) {
+      if (this.data.canvasHeight !== value && this.ctx) {
+        this.clearCtx()
+      }
+    }
   },
   lifetimes: {
     attached() {
       const { SDKVersion, platform, pixelRatio: Dpr } = wx.getSystemInfoSync()
       const use2dCanvas = compareVersion(SDKVersion, '2.9.2') >= 0
-      let dpr = Dpr
+      this.dpr = Dpr
       if (
         Dpr > 2 &&
         platform !== 'ios' &&
         platform !== 'devtools' &&
         this.data.androidDprTo2
       ) {
-        dpr = 2
+        this.dpr = 2
       }
-
-      this.dpr = dpr
-      this.setData({ use2dCanvas }, () => {
-        if (use2dCanvas) {
-          const query = this.createSelectorQuery()
-          query
-            .select(`#${canvasId}`)
-            .fields({ node: true, size: true })
-            .exec(res => {
-              const canvas = res[0].node
-              const ctx = canvas.getContext('2d')
-              canvas.width = res[0].width * dpr
-              canvas.height = res[0].height * dpr
-              ctx.scale(dpr, dpr)
-              this.ctx = ctx
-              this.canvas = canvas
-            })
-        } else {
-          this.ctx = wx.createCanvasContext(canvasId, this)
-        }
+      this.initCtx = new Promise(resolve => {
+        this.setData({ use2dCanvas }, () => {
+          this.initCanvas(resolve)
+        })
       })
     }
   },
   methods: {
+    clearCtx() {
+      if (this.isCleaning) return
+      this.isCleaning = true
+      this.initCtx = new Promise(resolve => {
+        this.ctx.clearRect(0, 0, this.data.canvasWidth, this.data.canvasHeight)
+        this.ctx = null
+        this.canvas = null
+        this.setData(
+          {
+            canvasWidth: this.data.width,
+            canvasHeight: this.data.height
+          },
+          () => this.initCanvas(resolve)
+        )
+      })
+    },
+    initCanvas(resolve) {
+      if (this.data.use2dCanvas) {
+        const query = this.createSelectorQuery()
+        query
+          .select(`#${canvasId}`)
+          .fields({ node: true, size: true })
+          .exec(res => {
+            const canvas = res[0].node
+            const ctx = canvas.getContext('2d')
+            canvas.width = res[0].width * this.dpr
+            canvas.height = res[0].height * this.dpr
+            ctx.scale(this.dpr, this.dpr)
+            this.ctx = ctx
+            this.canvas = canvas
+            this.isCleaning = false
+            resolve()
+          })
+      } else {
+        this.ctx = wx.createCanvasContext(canvasId, this)
+        this.isCleaning = false
+        resolve()
+      }
+    },
     async renderToCanvas(args) {
+      await this.initCtx
       const { wxml, style } = args
       const ctx = this.ctx
       const canvas = this.canvas
@@ -71,7 +109,6 @@ Component({
           new Error('renderToCanvas: fail canvas has not been created')
         )
       }
-
       ctx.clearRect(0, 0, this.data.width, this.data.height)
       const { root: xom } = xmlParse(wxml)
 

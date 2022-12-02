@@ -1,5 +1,6 @@
 const wxml = `
-<view class="container2" >
+<view class="container" >
+  <view class="header">
   <view class="item-box red">
   </view>
   <view class="item-box green" >
@@ -8,12 +9,19 @@ const wxml = `
   <view class="item-box blue">
       <image class="img" src="https://open.weixin.qq.com/zh_CN/htmledition/res/assets/res-design-download/icon64_appwx_logo.png"></image>
   </view>
+  </view>
+  <text class="ellipsis">test ellipsis!test ellipsis!</text>
 </view>
 `
 
 const style = {
   container: {
-    width: 300,
+    width: 375,
+    height: 300,
+    backgroundColor: '#ccc'
+  },
+  header: {
+    width: 375,
     height: 200,
     flexDirection: 'row',
     justifyContent: 'space-around',
@@ -25,7 +33,10 @@ const style = {
     height: 60
   },
   red: {
-    backgroundColor: '#ff0000'
+    backgroundColor: '#ff0000',
+    borderRadius: 10,
+    borderColor: '#000',
+    borderWidth: 10
   },
   green: {
     backgroundColor: '#00ff00'
@@ -45,9 +56,13 @@ const style = {
     width: 40,
     height: 40,
     borderRadius: 20
+  },
+  ellipsis: {
+    width: 40,
+    height: 40,
+    color: '#000000'
   }
 }
-const a = 166
 
 module.exports.wxml = wxml
 module.exports.style = style

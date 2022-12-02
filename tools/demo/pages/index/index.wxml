@@ -1,5 +1,10 @@
-<wxml-to-canvas class="widget"></wxml-to-canvas>
+<wxml-to-canvas
+  class="widget"
+  width="{{width}}"
+  height="{{height}}"
+></wxml-to-canvas>
 <button bindtap="renderToCanvas">渲染到canvas</button>
 <button bindtap="extraImage">导出图片</button>
+<button bindtap="changeHeight">修改宽度高度</button>
 
 <image src="{{src}}" style="width: {{width}}px; height: {{height}}px"></image>
