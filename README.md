@@ -2,9 +2,13 @@
 
 在 wxml-to-canvas 的基础上新增了部分功能。
 
+## 更新日志
+
+[Changelog](https://github.com/Yhspehy/wxml-to-canvas/blob/master/CHANGELOG.md)
+
 1. 新增 androidDprTo2 属性
 2. 画文本的时候，会自动计算宽度，超出部分转换成...（支持单行和多行）
-3. 支持在即时渲染画布
+3. 支持即时渲染画布
 4. 支持动态宽高
 
 [![](https://img.shields.io/npm/v/wxml-to-canvas)](https://www.npmjs.com/package/wxml-to-canvas)
@@ -57,6 +61,8 @@ Page({
   },
   onLoad() {
     this.widget = this.selectComponent('.widget')
+    // 支持即使渲染画布
+    // this.widget.renderToCanvas({ wxml, style })
   },
   renderToCanvas() {
     const p1 = this.widget.renderToCanvas({ wxml, style })
