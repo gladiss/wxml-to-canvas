@@ -1,6 +1,6 @@
 # wxml-to-canvas-enhanced
 
-在 wxml-to-canvas 的基础上新增了部分功能。
+在 wxml-to-canvas 的基础上新增了部分功能。如有新需求可在 issues 提出。
 
 ## 更新日志
 
