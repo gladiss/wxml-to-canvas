@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## 1.0.7
+
+### Feats
+
+- 新增 text，image，view 的 shadow css 属性，当在 image 上使用是，需要传递 clip 属性为 false
+- 新增 ellipsis, shadow, list 的 demo
+
+### Fixes
+
+- 初始化画布时，宽高不生效的 bug
+
 ## 1.0.6
 
 ### Fixes
