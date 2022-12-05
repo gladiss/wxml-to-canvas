@@ -21,7 +21,7 @@ Component({
     }
   },
   data: {
-    use2dCanvas: false, // 2.9.2 后可用canvas 2d 接口
+    use2dCanvas: true, // 2.9.2 后可用canvas 2d 接口
     canvasWidth: 400,
     canvasHeight: 300
   },
