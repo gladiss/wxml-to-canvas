@@ -54,7 +54,7 @@ const style = {
   },
   img: {
     width: 60,
-    height: 60,
+    height: 40,
     borderRadius: 20
   },
   ellipsis: {

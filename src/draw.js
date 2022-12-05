@@ -92,6 +92,8 @@ class Draw {
                       dHeight = iW / (w / h)
                       dy = (iH - dHeight) / 2
                       ctx.drawImage(Image, dx, dy, dWidth, dHeight, x, y, w, h)
+                      ctx.restore()
+                      resolve()
                     } else {
                       let dx,
                         dy = 0,
@@ -101,15 +103,23 @@ class Draw {
                       dWidth = iH / (h / w)
                       dx = (iW - dWidth) / 2
                       ctx.drawImage(Image, dx, dy, dWidth, dHeight, x, y, w, h)
+                      ctx.restore()
+                      resolve()
                     }
+                  } else {
+                    reject(
+                      new Error(
+                        `image mode error: ${mode},  only support 'aspectFit' and  'aspectFill'`
+                      )
+                    )
                   }
                 }
               })
             } else {
               ctx.drawImage(Image, x, y, w, h)
+              ctx.restore()
+              resolve()
             }
-            ctx.restore()
-            resolve()
           }
           Image.onerror = () => {
             reject(new Error(`createImage fail: ${img}`))
