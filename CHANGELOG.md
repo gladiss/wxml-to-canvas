@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 1.0.5
+
+### Feats
+
+- image 支持 mode(aspectFit, aspectFill)
+
 ## 1.0.4
 
 ### Feats

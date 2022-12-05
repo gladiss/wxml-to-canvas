@@ -52,7 +52,7 @@ class Draw {
     ctx.restore()
   }
 
-  async drawImage(img, box, style) {
+  async drawImage(img, box, style, mode) {
     await new Promise((resolve, reject) => {
       const ctx = this.ctx
       const canvas = this.canvas
@@ -67,7 +67,47 @@ class Draw {
         if (this.use2dCanvas) {
           const Image = canvas.createImage()
           Image.onload = () => {
-            ctx.drawImage(Image, x, y, w, h)
+            if (mode) {
+              wx.getImageInfo({
+                src: img,
+                success: imgInfo => {
+                  const { width: iW, height: iH } = imgInfo
+                  if (mode === 'aspectFit') {
+                    if (w / h >= iW / iH) {
+                      let dWidth = (h / iH) * iW
+                      let dx = (w - dWidth) / 2 + x
+                      ctx.drawImage(Image, dx, y, dWidth, h)
+                    } else {
+                      let dHeight = (w / iW) * iH
+                      let dy = (h - dHeight) / 2 + y
+                      ctx.drawImage(Image, x, dy, w, dHeight)
+                    }
+                  } else if (mode === 'aspectFill') {
+                    if (w / h >= iW / iH) {
+                      let dx = 0,
+                        dy,
+                        dWidth,
+                        dHeight
+                      dWidth = iW
+                      dHeight = iW / (w / h)
+                      dy = (iH - dHeight) / 2
+                      ctx.drawImage(Image, dx, dy, dWidth, dHeight, x, y, w, h)
+                    } else {
+                      let dx,
+                        dy = 0,
+                        dWidth,
+                        dHeight
+                      dHeight = iH
+                      dWidth = iH / (h / w)
+                      dx = (iW - dWidth) / 2
+                      ctx.drawImage(Image, dx, dy, dWidth, dHeight, x, y, w, h)
+                    }
+                  }
+                }
+              })
+            } else {
+              ctx.drawImage(Image, x, y, w, h)
+            }
             ctx.restore()
             resolve()
           }
@@ -217,11 +257,11 @@ class Draw {
 
   async drawNode(element) {
     const { layoutBox, computedStyle, name } = element
-    const { src, text } = element.attributes
+    const { src, text, mode } = element.attributes
     if (name === 'view') {
       this.drawView(layoutBox, computedStyle)
     } else if (name === 'image') {
-      await this.drawImage(src, layoutBox, computedStyle)
+      await this.drawImage(src, layoutBox, computedStyle, mode)
     } else if (name === 'text') {
       this.drawText(text, layoutBox, computedStyle)
     }

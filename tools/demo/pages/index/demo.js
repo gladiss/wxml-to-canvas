@@ -1,13 +1,13 @@
 const wxml = `
 <view class="container" >
   <view class="header">
-  <view class="item-box red">
+    <view class="item-box red">
   </view>
   <view class="item-box green" >
     <text class="text">yeah!</text>
   </view>
   <view class="item-box blue">
-      <image class="img" src="https://open.weixin.qq.com/zh_CN/htmledition/res/assets/res-design-download/icon64_appwx_logo.png"></image>
+    <image class="img" mode="aspectFill" src="https://open.weixin.qq.com/zh_CN/htmledition/res/assets/res-design-download/icon64_appwx_logo.png"></image>
   </view>
   </view>
   <text class="ellipsis">test ellipsis!test ellipsis!</text>
@@ -53,8 +53,8 @@ const style = {
     verticalAlign: 'middle'
   },
   img: {
-    width: 40,
-    height: 40,
+    width: 60,
+    height: 60,
     borderRadius: 20
   },
   ellipsis: {
