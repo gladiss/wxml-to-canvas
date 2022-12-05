@@ -10,6 +10,7 @@
 2. 画文本的时候，会自动计算宽度，超出部分转换成...（支持单行和多行）
 3. 支持即时渲染画布
 4. 支持动态宽高
+5. 图片支持 mode 属性(aspectFit, aspectFill)
 
 [![](https://img.shields.io/npm/v/wxml-to-canvas)](https://www.npmjs.com/package/wxml-to-canvas)
 [![](https://img.shields.io/npm/l/wxml-to-canvas)](https://github.com/wechat-miniprogram/wxml-to-canvas)
