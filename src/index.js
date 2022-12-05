@@ -51,9 +51,16 @@ Component({
         this.dpr = 2
       }
       this.initCtx = new Promise(resolve => {
-        this.setData({ use2dCanvas }, () => {
-          this.initCanvas(resolve)
-        })
+        this.setData(
+          {
+            use2dCanvas,
+            canvasWidth: this.data.width,
+            canvasHeight: this.data.height
+          },
+          () => {
+            this.initCanvas(resolve)
+          }
+        )
       })
     }
   },
@@ -74,13 +81,22 @@ Component({
         )
       })
     },
-    initCanvas(resolve) {
+    initCanvas(resolve, reInitCount) {
       if (this.data.use2dCanvas) {
         const query = this.createSelectorQuery()
+
         query
           .select(`#${canvasId}`)
           .fields({ node: true, size: true })
           .exec(res => {
+            if (!res || res.length === 0 || !res[0] || !res[0].node) {
+              if (reInitCount < 5) {
+                setTimeout(() => {
+                  this.initCanvas(resolve, reInitCount ? reInitCount : 1)
+                }, 300)
+              }
+              return
+            }
             const canvas = res[0].node
             const ctx = canvas.getContext('2d')
             canvas.width = res[0].width * this.dpr

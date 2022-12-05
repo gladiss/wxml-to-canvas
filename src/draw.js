@@ -27,13 +27,25 @@ class Draw {
       borderWidth = 0,
       borderColor,
       color = '#000',
-      backgroundColor = 'transparent'
+      backgroundColor = 'transparent',
+      shadow
     } = style
     ctx.save()
+
+    // 阴影shadow
+    if (shadow) {
+      this.drawShadow(shadow)
+    }
+
     // 外环
     if (borderWidth > 0) {
       ctx.fillStyle = borderColor || color
       this.roundRect(x, y, w, h, borderRadius)
+      // 取消内环的阴影
+      ctx.shadowOffsetX = ''
+      ctx.shadowOffsetY = ''
+      ctx.shadowBlur = ''
+      ctx.shadowColor = ''
     }
 
     // 内环
@@ -42,6 +54,7 @@ class Draw {
     const innerHeight = h - 2 * borderWidth
     const innerRadius =
       borderRadius - borderWidth >= 0 ? borderRadius - borderWidth : 0
+
     this.roundRect(
       x + borderWidth,
       y + borderWidth,
@@ -52,18 +65,25 @@ class Draw {
     ctx.restore()
   }
 
-  async drawImage(img, box, style, mode) {
+  async drawImage(img, box, style, mode, clip) {
     await new Promise((resolve, reject) => {
       const ctx = this.ctx
       const canvas = this.canvas
 
-      const { borderRadius = 0 } = style
+      const { borderRadius = 0, shadow } = style
       const { left: x, top: y, width: w, height: h } = box
       ctx.save()
-      this.roundRect(x, y, w, h, borderRadius, false, false)
-      ctx.clip()
+
+      if (clip !== false) {
+        this.roundRect(x, y, w, h, borderRadius, false, false)
+        ctx.clip()
+      }
 
       const _drawImage = img => {
+        // 阴影shadow
+        if (shadow) {
+          this.drawShadow(shadow)
+        }
         if (this.use2dCanvas) {
           const Image = canvas.createImage()
           Image.onload = () => {
@@ -170,7 +190,8 @@ class Draw {
       fontSize = 14,
       textAlign = 'left',
       verticalAlign = 'top',
-      backgroundColor = 'transparent'
+      backgroundColor = 'transparent',
+      shadow
     } = style
 
     if (typeof lineHeight === 'string') {
@@ -183,6 +204,11 @@ class Draw {
     ctx.textBaseline = 'top'
     ctx.font = `${fontSize}px sans-serif`
     ctx.textAlign = textAlign
+
+    // 阴影shadow
+    if (shadow) {
+      this.drawShadow(shadow)
+    }
 
     // 背景色
     ctx.fillStyle = backgroundColor
@@ -245,14 +271,17 @@ class Draw {
       if (testWidth > w) {
         // 换行之后是否超过文本的高度
         if (y + lineHeight * 2 > _y + h) {
-          line = line.substring(0, line.length - 1) + '...'
-          ctx.fillText(line, x, y + inlinePaddingTop)
+          // 不截断省略号
+          while (ctx.measureText(line + '...').width > w) {
+            line = line.slice(0, -1)
+          }
+          ctx.fillText(line + '...', x, y + inlinePaddingTop)
+          break
         } else {
           ctx.fillText(line, x, y + inlinePaddingTop)
+          y += lineHeight
+          line = ch
         }
-        y += lineHeight
-        line = ch
-        if (y + lineHeight > _y + h) break
       } else {
         line = testLine
       }
@@ -262,16 +291,30 @@ class Draw {
     if (y + lineHeight <= _y + h) {
       ctx.fillText(line, x, y + inlinePaddingTop)
     }
+
     ctx.restore()
+  }
+
+  drawShadow(shadow) {
+    const ctx = this.ctx
+    let shadowVList = shadow.replace(/,\s+/g, ',').split(/\s+/)
+    if (shadowVList.length > 4) {
+      console.error("shadow don't spread option")
+      return
+    }
+    ctx.shadowOffsetX = parseInt(shadowVList[0], 10)
+    ctx.shadowOffsetY = parseInt(shadowVList[1], 10)
+    ctx.shadowBlur = parseInt(shadowVList[2], 10)
+    ctx.shadowColor = shadowVList[3]
   }
 
   async drawNode(element) {
     const { layoutBox, computedStyle, name } = element
-    const { src, text, mode } = element.attributes
+    const { src, text, mode, clip } = element.attributes
     if (name === 'view') {
       this.drawView(layoutBox, computedStyle)
     } else if (name === 'image') {
-      await this.drawImage(src, layoutBox, computedStyle, mode)
+      await this.drawImage(src, layoutBox, computedStyle, mode, clip)
     } else if (name === 'text') {
       this.drawText(text, layoutBox, computedStyle)
     }
