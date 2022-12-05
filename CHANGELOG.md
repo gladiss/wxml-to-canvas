@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 1.0.6
+
+### Fixes
+
+- ctx.restore() after drawImage with mode
+
 ## 1.0.5
 
 ### Feats
