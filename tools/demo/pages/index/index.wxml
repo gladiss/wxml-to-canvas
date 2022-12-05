@@ -3,7 +3,7 @@
   width="{{width}}"
   height="{{height}}"
 ></wxml-to-canvas>
-<button bindtap="renderToCanvas">渲染到canvas</button>
+<button bindtap="renderToCanvas">重新渲染</button>
 <button bindtap="extraImage">导出图片</button>
 <button bindtap="changeHeight">修改宽度高度</button>
 

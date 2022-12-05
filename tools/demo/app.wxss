@@ -1,0 +1,6 @@
+.pre {
+  white-space: pre;
+  color: #333;
+  font-size: 28rpx;
+  overflow: auto;
+}

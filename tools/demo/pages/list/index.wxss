@@ -1,0 +1,20 @@
+page {
+  color: #333;
+  font-size: 28rpx;
+  padding: 32rpx;
+  box-sizing: border-box;
+  background-color: gainsboro;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 20rpx;
+  font-size: 32rpx;
+}
+
+.item {
+  padding: 20rpx 30rpx;
+  background-color: #fff;
+  margin-bottom: 20rpx;
+  border-radius: 4rpx;
+}

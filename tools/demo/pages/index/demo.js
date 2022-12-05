@@ -36,10 +36,12 @@ const style = {
     backgroundColor: '#ff0000',
     borderRadius: 10,
     borderColor: '#000',
-    borderWidth: 10
+    borderWidth: 10,
+    shadow: '0 25 10 pink'
   },
   green: {
-    backgroundColor: '#00ff00'
+    backgroundColor: '#00ff00',
+    shadow: '0 25 10 #000'
   },
   blue: {
     backgroundColor: '#0000ff',
@@ -54,8 +56,7 @@ const style = {
   },
   img: {
     width: 60,
-    height: 40,
-    borderRadius: 20
+    height: 40
   },
   ellipsis: {
     width: 40,

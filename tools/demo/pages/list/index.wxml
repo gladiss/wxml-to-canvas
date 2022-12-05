@@ -1,0 +1,11 @@
+<view class="header">小程序画布内容展示</view>
+
+<view
+  wx:for="{{list}}"
+  wx:key="id"
+  bindtap="toDemo"
+  data-url="{{item.url}}"
+  class="item"
+>
+  <view>{{item.name}}</view>
+</view>
