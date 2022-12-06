@@ -4,7 +4,7 @@
 
 ### Feats
 
-- 新增 text，image，view 的 shadow css 属性，当在 image 上使用是，需要传递 clip 属性为 false
+- 新增 text，image，view 的 shadow css 属性，当在 image 上使用时，需要传递 clip 属性为 false，否则会裁剪图片
 - 新增 ellipsis, shadow, list 的 demo
 
 ### Fixes

@@ -11,7 +11,7 @@
 3. 支持即时渲染画布
 4. 支持动态宽高
 5. 图片支持 mode 属性(aspectFit, aspectFill)
-6. 新增 text，image，view 的 shadow css 属性，当在 image 上使用是，需要传递 clip 属性为 false
+6. 新增 text，image，view 的 shadow css 属性，当在 image 上使用时，需要传递 clip 属性为 false，否则会裁剪图片
 7. 新增 ellipsis, shadow 的 demo
 
 [![](https://img.shields.io/npm/v/wxml-to-canvas)](https://www.npmjs.com/package/wxml-to-canvas)
@@ -207,4 +207,13 @@ lineHeight 可取带 em 单位的字符串或数字类型。
 | ------ | ------------------------------ | ------ |
 | shadow | 'h-shadow v-shadow blur color' |        |
 
-阴影类型详见[mdn](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/shadowBlur)
+阴影类型详见[mdn](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/shadowBlur),
+当在 image 上使用时，需要传递 clip 属性为 false，否则会裁剪图片
+
+## 组件属性
+
+### Image
+
+| 属性名 | 支持的值或类型 | 默认值 | 描述         |
+| ------ | -------------- | ------ | ------------ |
+| clip   | boolean        | true   | 是否裁剪图片 |
