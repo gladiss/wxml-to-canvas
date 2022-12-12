@@ -14,7 +14,7 @@
 6. 新增 text，image，view 的 shadow css 属性，当在 image 上使用时，需要传递 clip 属性为 false，否则会裁剪图片
 7. 新增 ellipsis, shadow 的 demo
 
-[![](https://img.shields.io/npm/v/wxml-to-canvas)](https://www.npmjs.com/package/wxml-to-canvas)
+[![](https://img.shields.io/npm/v/wxml-to-canvas)](https://www.npmjs.com/package/wxml-to-canvas-enhanced)
 [![](https://img.shields.io/npm/l/wxml-to-canvas)](https://github.com/wechat-miniprogram/wxml-to-canvas)
 
 小程序内通过静态模板和样式绘制 canvas ，导出图片，可用于生成分享图等场景。[代码片段](https://developers.weixin.qq.com/s/r6UBlEm17pc6)
